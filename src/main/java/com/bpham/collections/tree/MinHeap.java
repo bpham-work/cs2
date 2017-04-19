@@ -1,6 +1,6 @@
 package com.bpham.collections.tree;
 
-public class MaxHeap implements Heap<Integer> {
+public class MinHeap implements Heap<Integer> {
     public Integer[] heapArray = new Integer[100];
     private int size = 0;
 
@@ -14,7 +14,7 @@ public class MaxHeap implements Heap<Integer> {
 
     @Override
     public Integer dequeue() {
-        int toReturn = heapArray[1];
+        Integer toReturn = heapArray[1];
         swap(1, size);
         heapArray[size] = null;
         sink(1);
@@ -42,24 +42,24 @@ public class MaxHeap implements Heap<Integer> {
 
     public void sink(int nodeIndex) {
         int leftChildIndex = nodeIndex * 2;
-        int rightChildIndex = leftChildIndex + 1;
-        Integer value = heapArray[nodeIndex];
-        Integer leftChild = heapArray[leftChildIndex];
-        Integer rightChild = heapArray[rightChildIndex];
-        if (isLessThan(value, leftChild, rightChild)) {
-            if (rightChild > leftChild) {
-                swap(nodeIndex, rightChildIndex);
-                sink(rightChildIndex);
-            } else {
+        int rightChildIndex = (nodeIndex * 2) + 1;
+        int value = heapArray[nodeIndex];
+        Integer leftChildValue = heapArray[leftChildIndex];
+        Integer rightChildValue = heapArray[rightChildIndex];
+        if (isGreaterThan(value, leftChildValue, rightChildValue)) {
+            if (leftChildValue < rightChildValue) {
                 swap(nodeIndex, leftChildIndex);
                 sink(leftChildIndex);
+            } else {
+                swap(nodeIndex, rightChildIndex);
+                sink(rightChildIndex);
             }
-        } else if (isLessThan(value, rightChild)) {
-            swap(nodeIndex, rightChildIndex);
-            sink(rightChildIndex);
-        } else if (isLessThan(value, leftChild)) {
+        } else if (isGreaterThan(value, leftChildValue)) {
             swap(nodeIndex, leftChildIndex);
             sink(leftChildIndex);
+        } else if (isGreaterThan(value, rightChildIndex)) {
+            swap(nodeIndex, rightChildIndex);
+            sink(rightChildIndex);
         }
     }
 
@@ -68,10 +68,10 @@ public class MaxHeap implements Heap<Integer> {
             return;
         }
         int parentIndex = getParentIndex(nodeIndex);
-        Integer value = heapArray[nodeIndex];
         Integer parentValue = heapArray[parentIndex];
-        if (isLessThan(parentValue, value)) {
-            swap(parentIndex, nodeIndex);
+        Integer childValue = heapArray[nodeIndex];
+        if (parentValue > childValue) {
+            swap(nodeIndex, parentIndex);
             swim(parentIndex);
         }
     }
@@ -85,15 +85,15 @@ public class MaxHeap implements Heap<Integer> {
         }
     }
 
-    private boolean isLessThan(Integer value, Integer toCompare1, Integer toCompare2) {
+    private boolean isGreaterThan(Integer value, Integer toCompare1, Integer toCompare2) {
         return toCompare1 != null &&
                 toCompare2 != null &&
-                value < toCompare1 &&
-                value < toCompare2;
+                value > toCompare1 &&
+                value > toCompare2;
     }
 
-    private boolean isLessThan(Integer value, Integer toCompare) {
-        return toCompare != null && value < toCompare;
+    private boolean isGreaterThan(Integer value, Integer toCompare) {
+        return toCompare != null && value > toCompare;
     }
 
     private void swap(int index1, int index2) {

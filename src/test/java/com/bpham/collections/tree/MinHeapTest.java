@@ -5,118 +5,118 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class MaxHeapTest {
+public class MinHeapTest {
     @Test
     public void shouldSinkIntoProperPosition() {
-        MaxHeap heap = new MaxHeap();
-        heap.heapArray[1] = 1;
-        heap.heapArray[2] = 2;
+        MinHeap heap = new MinHeap();
+        heap.heapArray[1] = 2;
+        heap.heapArray[2] = 1;
 
         heap.sink(1);
 
-        assertIsMaxHeap(heap, 2);
+        assertIsMinHeap(heap, 2);
     }
 
     @Test
     public void shouldSinkIntoProperPosition2() {
-        MaxHeap heap = new MaxHeap();
-        heap.heapArray[1] = 1;
-        heap.heapArray[2] = 2;
+        MinHeap heap = new MinHeap();
+        heap.heapArray[1] = 4;
+        heap.heapArray[2] = 1;
         heap.heapArray[3] = 2;
-        heap.heapArray[4] = 2;
+        heap.heapArray[4] = 3;
 
         heap.sink(1);
 
-        assertIsMaxHeap(heap, 4);
+        assertIsMinHeap(heap, 4);
     }
 
     @Test
     public void shouldHeapify() {
-        MaxHeap heap = new MaxHeap();
-        Integer[] toHeapify = {1, 2, 3};
+        MinHeap heap = new MinHeap();
+        Integer[] toHeapify = {3, 2, 1};
 
         heap.heapify(toHeapify);
 
-        assertIsMaxHeap(heap, 3);
+        assertIsMinHeap(heap, 3);
         assertEquals(3, heap.size());
     }
 
     @Test
     public void shouldHeapify2() {
-        MaxHeap heap = new MaxHeap();
-        Integer[] toHeapify = {1, 2, 3, 4};
+        MinHeap heap = new MinHeap();
+        Integer[] toHeapify = {4, 3, 2, 1};
 
         heap.heapify(toHeapify);
 
-        assertIsMaxHeap(heap, 4);
+        assertIsMinHeap(heap, 4);
         assertEquals(4, heap.size());
     }
 
     @Test
     public void shouldSwim() {
-        MaxHeap heap = new MaxHeap();
-        heap.heapArray[1] = 1;
-        heap.heapArray[2] = 2;
-        heap.heapArray[3] = 3;
+        MinHeap heap = new MinHeap();
+        heap.heapArray[1] = 2;
+        heap.heapArray[2] = 3;
+        heap.heapArray[3] = 1;
 
         heap.swim(3);
 
-        assertIsMaxHeap(heap, 3);
+        assertIsMinHeap(heap, 3);
     }
 
     @Test
     public void shouldSwim2() {
-        MaxHeap heap = new MaxHeap();
-        heap.heapArray[1] = 3;
-        heap.heapArray[2] = 2;
-        heap.heapArray[3] = 1;
-        heap.heapArray[4] = 4;
+        MinHeap heap = new MinHeap();
+        heap.heapArray[1] = 2;
+        heap.heapArray[2] = 3;
+        heap.heapArray[3] = 4;
+        heap.heapArray[4] = 1;
 
         heap.swim(4);
 
-        assertIsMaxHeap(heap, 4);
+        assertIsMinHeap(heap, 4);
     }
 
     @Test
     public void shouldEnqueue() {
-        MaxHeap heap = new MaxHeap();
+        MinHeap heap = new MinHeap();
 
         heap.enqueue(1);
 
         assertEquals((Integer) 1, heap.peek());
-        assertIsMaxHeap(heap, 1);
+        assertIsMinHeap(heap, 1);
         assertEquals(1, heap.size());
     }
 
     @Test
     public void shouldEnqueue2() {
-        MaxHeap heap = new MaxHeap();
+        MinHeap heap = new MinHeap();
 
-        heap.enqueue(1);
         heap.enqueue(2);
+        heap.enqueue(1);
 
-        assertEquals((Integer) 2, heap.peek());
-        assertIsMaxHeap(heap, 2);
+        assertEquals((Integer) 1, heap.peek());
+        assertIsMinHeap(heap, 2);
         assertEquals(2, heap.size());
     }
 
     @Test
     public void shouldDequeue() {
-        MaxHeap heap = new MaxHeap();
+        MinHeap heap = new MinHeap();
         heap.enqueue(1);
         heap.enqueue(2);
         heap.enqueue(3);
 
         Integer result = heap.dequeue();
 
-        assertEquals((Integer) 3, result);
+        assertEquals((Integer) 1, result);
         assertEquals(2, heap.size());
-        assertIsMaxHeap(heap, 2);
+        assertIsMinHeap(heap, 2);
     }
 
     @Test
     public void shouldDequeue3() {
-        MaxHeap heap = new MaxHeap();
+        MinHeap heap = new MinHeap();
         heap.enqueue(1);
         heap.enqueue(2);
         heap.enqueue(3);
@@ -124,12 +124,12 @@ public class MaxHeapTest {
 
         Integer result = heap.dequeue();
 
-        assertEquals((Integer) 4, result);
+        assertEquals((Integer) 1, result);
         assertEquals(3, heap.size());
-        assertIsMaxHeap(heap, 3);
+        assertIsMinHeap(heap, 3);
     }
 
-    private void assertIsMaxHeap(MaxHeap heap, int length) {
+    private void assertIsMinHeap(MinHeap heap, int length) {
         Integer[] heapArray = heap.heapArray;
         for (int x = 1; x <= length; x++) {
             int leftChildIndex = x * 2;
@@ -137,15 +137,15 @@ public class MaxHeapTest {
             Integer parent = heapArray[x];
             Integer leftChild = heapArray[leftChildIndex];
             Integer rightChild = heapArray[rightChildIndex];
-            boolean isParentGteLeft = false;
-            boolean isParentGteRight = false;
-            if (leftChild == null || parent >= leftChild) {
-                isParentGteLeft = true;
+            boolean isParentLteLeft = false;
+            boolean isParentLteRight = false;
+            if (leftChild == null || parent <= leftChild) {
+                isParentLteLeft = true;
             }
-            if (rightChild == null || parent >= rightChild) {
-                isParentGteRight = true;
+            if (rightChild == null || parent <= rightChild) {
+                isParentLteRight = true;
             }
-            assertTrue(isParentGteLeft && isParentGteRight);
+            assertTrue(isParentLteLeft && isParentLteRight);
         }
     }
 }

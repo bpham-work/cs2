@@ -31,4 +31,9 @@ public class LinkedListQueue<T> implements Queue<T> {
     public T peek() {
         return headNode.getValue();
     }
+
+    @Override
+    public boolean isEmpty() {
+        return headNode == null;
+    }
 }

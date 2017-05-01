@@ -21,6 +21,11 @@ public class ArrayQueue<T> implements Queue<T> {
         return array[0];
     }
 
+    @Override
+    public boolean isEmpty() {
+        return array.length == 0;
+    }
+
     private void shiftForward() {
         for (int index = 1; index < array.length; index++) {
             array[index-1] = array[index];

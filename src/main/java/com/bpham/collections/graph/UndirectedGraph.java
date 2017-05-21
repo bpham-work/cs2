@@ -60,11 +60,14 @@ public class UndirectedGraph {
         private UndirectedGraph graph;
         private int sourceVertex;
         private boolean[] visitedVertices;
+        private int[] previousEdgeTo;
 
         public DepthFirstSearch(UndirectedGraph graph, int sourceVertex) {
             this.graph = graph;
             this.sourceVertex = sourceVertex;
             visitedVertices = new boolean[graph.numOfVertices()];
+            previousEdgeTo = new int[graph.numOfVertices()];
+            previousEdgeTo[sourceVertex] = sourceVertex;
             depthFirstSearch(sourceVertex);
         }
 
@@ -73,9 +76,13 @@ public class UndirectedGraph {
             if (!hasVertexBeenVisited) {
                 visitedVertices[vertex] = true;
                 for (Integer adjVertex : graph.adjacentVertices(vertex)) {
-                    depthFirstSearch(adjVertex);
+                    if (!visitedVertices[adjVertex]) {
+                        previousEdgeTo[adjVertex] = vertex;
+                        depthFirstSearch(adjVertex);
+                    }
                 }
             }
+
         }
 
         public boolean hasPathTo(int vertex) {
@@ -83,32 +90,18 @@ public class UndirectedGraph {
         }
 
         public List<Integer> pathTo(int vertexToFind) {
-            Stack<Integer> pathStack = new LinkedListStack<>();
-            boolean[] visitedVertices = new boolean[graph.numOfVertices()];
-            pathTo(sourceVertex, vertexToFind, pathStack, visitedVertices);
-            List<Integer> pathArray = new ArrayList<>();
-            while (!pathStack.isEmpty()) {
-                pathArray.add(pathStack.pop());
-            }
-            return pathArray;
+            List<Integer> path = new ArrayList<>();
+            pathTo(vertexToFind, path);
+            Collections.reverse(path);
+            return path;
         }
 
-        public boolean pathTo(int source, int vertexToFind, Stack<Integer> pathStack, boolean[] visitedVertices) {
-            visitedVertices[source] = true;
-            if (source == vertexToFind) {
-                pathStack.push(vertexToFind);
-                return true;
+        public void pathTo(int vertex, List<Integer> path) {
+            path.add(vertex);
+            if (vertex == sourceVertex) {
+                return;
             }
-            for (Integer adjacentVertex : graph.adjacentVertices(source)) {
-                if (!visitedVertices[adjacentVertex]) {
-                    boolean hasPath = pathTo(adjacentVertex, vertexToFind, pathStack, visitedVertices);
-                    if (hasPath) {
-                        pathStack.push(source);
-                        return true;
-                    }
-                }
-            }
-            return false;
+            pathTo(previousEdgeTo[vertex], path);
         }
     }
 

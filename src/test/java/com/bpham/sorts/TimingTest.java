@@ -3,6 +3,7 @@ package com.bpham.sorts;
 import com.google.common.base.Stopwatch;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Random;
@@ -27,6 +28,7 @@ public class TimingTest {
         s.start();
     }
 
+    @Ignore
     @Test
     public void testSelectionSort() {
         System.out.println("Selection Sort");
@@ -35,6 +37,7 @@ public class TimingTest {
         assertIsSorted(arrayToBeSorted);
     }
 
+    @Ignore
     @Test
     public void testInsertionSort() {
         System.out.println("Insertion Sort");
@@ -43,6 +46,7 @@ public class TimingTest {
         assertIsSorted(arrayToBeSorted);
     }
 
+    @Ignore
     @Test
     public void testMergeSort() {
         System.out.println("Merge Sort");
@@ -51,6 +55,7 @@ public class TimingTest {
         assertIsSorted(arrayToBeSorted);
     }
 
+    @Ignore
     @Test
     public void testQuickSort() {
         System.out.println("Quick Sort");

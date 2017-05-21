@@ -3,6 +3,7 @@ package com.bpham.collections.stack;
 public class ArrayStack<T> implements Stack<T> {
     private T[] array = (T[]) new Object[10];
     private Integer headPointer = null;
+    private int size = 0;
 
     @Override
     public void push(T value) {
@@ -13,6 +14,7 @@ public class ArrayStack<T> implements Stack<T> {
             headPointer++;
             array[headPointer] = value;
         }
+        size++;
     }
 
     @Override
@@ -20,11 +22,17 @@ public class ArrayStack<T> implements Stack<T> {
         T valueToPop = array[headPointer];
         array[headPointer] = null;
         headPointer--;
+        size--;
         return valueToPop;
     }
 
     @Override
     public T peek() {
         return array[headPointer];
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
     }
 }

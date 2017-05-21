@@ -4,6 +4,7 @@ import com.bpham.collections.linkedlist.Node;
 
 public class LinkedListStack<T> implements Stack<T> {
     private Node<T> headNode;
+    private int size = 0;
 
     @Override
     public void push(T value) {
@@ -15,6 +16,7 @@ public class LinkedListStack<T> implements Stack<T> {
             headNode = newNode;
             headNode.setNextNode(temp);
         }
+        size++;
     }
 
     @Override
@@ -23,11 +25,17 @@ public class LinkedListStack<T> implements Stack<T> {
         T valueToReturn = nodeToPop.getValue();
         headNode = nodeToPop.getNextNode();
         nodeToPop = null;
+        size--;
         return valueToReturn;
     }
 
     @Override
     public T peek() {
         return headNode.getValue();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
     }
 }

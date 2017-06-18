@@ -2,58 +2,22 @@ package com.bpham.collections.graph;
 
 import com.bpham.collections.queue.LinkedListQueue;
 import com.bpham.collections.queue.Queue;
-import com.bpham.collections.stack.LinkedListStack;
-import com.bpham.collections.stack.Stack;
 
 import java.util.*;
 
-public class UndirectedGraph {
-    /**
-     * Array of sets containing adjacent vertices.
-     *
-     * Indexes represent the vertex i.e. index 0 = vertex 0
-     * */
-    private Set<Integer>[] vertices;
-    private int numOfVertices;
-    private int numOfEdges;
+public class UndirectedGraph extends Graph {
 
     public UndirectedGraph(int numOfVertices) {
-        this.numOfVertices = numOfVertices;
-        vertices = new HashSet[numOfVertices];
-        for (int i = 0; i < numOfVertices; i++) {
-            vertices[i] = new HashSet<>();
-        }
+        super(numOfVertices);
     }
 
+    @Override
     public void addEdge(int vertex1, int vertex2) {
         validateVertex(vertex1);
         validateVertex(vertex2);
         vertices[vertex1].add(vertex2);
         vertices[vertex2].add(vertex1);
         numOfEdges++;
-    }
-
-    public int numOfEdges() {
-        return numOfEdges;
-    }
-
-    public int numOfVertices() {
-        return numOfVertices;
-    }
-
-    public boolean areAdjacent(int vertex1, int vertex2) {
-        return vertices[vertex1].contains(vertex2);
-    }
-
-    public Iterable<Integer> adjacentVertices(int vertex) {
-        validateVertex(vertex);
-        return vertices[vertex];
-    }
-
-    private void validateVertex(int vertex) {
-        if (vertex < 0 || vertex > numOfVertices) {
-            throw new IllegalArgumentException("Invalid vertex");
-        }
     }
 
     public static class DepthFirstSearch {

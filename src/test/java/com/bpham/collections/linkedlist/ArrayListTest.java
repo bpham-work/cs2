@@ -2,21 +2,19 @@ package com.bpham.collections.linkedlist;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-public class LinkedListTest {
+public class ArrayListTest {
     @Test
     public void getIndex0() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(1);
         assertEquals((Integer) 1, list.get(0));
     }
 
     @Test
     public void getIndex1() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
         assertEquals((Integer) 2, list.get(1));
@@ -24,13 +22,13 @@ public class LinkedListTest {
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void getIndexOutOfbounds() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.get(0);
     }
 
     @Test
     public void addItem() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
         assertEquals((Integer) 1, list.get(0));
@@ -39,7 +37,7 @@ public class LinkedListTest {
 
     @Test
     public void addCheckSize() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
         assertEquals(2, list.length());
@@ -47,7 +45,7 @@ public class LinkedListTest {
 
     @Test
     public void addItemAtHead() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
         list.add(3, 0);
@@ -58,7 +56,7 @@ public class LinkedListTest {
 
     @Test
     public void addItemAtIndex() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
         list.add(3, 1);
@@ -69,7 +67,7 @@ public class LinkedListTest {
 
     @Test
     public void addItemAtIndexCheckSize() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
         list.add(3, 1);
@@ -78,13 +76,13 @@ public class LinkedListTest {
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void addItemAtIndexOutOfBound() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(3, 1);
     }
 
     @Test
     public void removeAtHead() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
         list.remove(0);
@@ -93,7 +91,7 @@ public class LinkedListTest {
 
     @Test
     public void removeAtIndex() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
         list.add(3);
@@ -104,13 +102,13 @@ public class LinkedListTest {
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void removeIndexOutOfBounds() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.remove(0);
     }
 
     @Test
     public void removeCheckSize() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
         list.remove(0);
@@ -119,7 +117,7 @@ public class LinkedListTest {
 
     @Test
     public void findItem() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
         int result = list.find(1);
@@ -128,7 +126,7 @@ public class LinkedListTest {
 
     @Test
     public void findItemThatDoesNotExist() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
         int result = list.find(3);
@@ -137,7 +135,7 @@ public class LinkedListTest {
 
     @Test
     public void getFirst() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
         assertEquals((Integer) 1, list.first());
@@ -145,26 +143,26 @@ public class LinkedListTest {
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void getFirstIndexOutOfBounds() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.first();
     }
 
     @Test
     public void isEmpty() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         assertTrue(list.isEmpty());
     }
 
     @Test
     public void isNotEmpty() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(1);
         assertFalse(list.isEmpty());
     }
 
     @Test
     public void iterateTest() {
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(0);
         list.add(1);
         list.add(2);
